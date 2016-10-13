@@ -1,0 +1,123 @@
+#!/usr/bin/python3
+
+import sys
+
+cOption = True
+wOption = True
+lOption = True
+mOption = False
+
+optionsProvided = False
+
+if len(sys.argv) > 1 and sys.argv[1][0] == "-":
+	cOption = False
+	wOption = False
+	lOption = False
+
+for arg in sys.argv:
+	if arg[0] == "-":
+		print(arg[0])
+		if "l" in arg:
+			lOption = True
+		if "c" in arg:
+			cOption = True
+		if "w" in arg:
+			wOption = True
+		if "m" in arg:
+			mOption = True
+
+files = []
+for i in range(1, len(sys.argv)):
+	if not sys.argv[i][0] == "-":
+		files.append(sys.argv[i])
+	else:
+		if not optionsProvided:
+			cOption = False
+			wOption = False
+			lOption = False
+			optionsProvided = True
+
+		if "l" in sys.argv[i]:
+			lOption = True
+		if "w" in sys.argv[i]:
+			wOption = True
+		if "c" in sys.argv[i]:
+			cOption = True
+
+
+
+
+if len(files) == 0:
+	num_words = 0
+	num_lines = 0
+	num_chars = 0
+	num_bytes = 0
+	for line in sys.stdin:
+		for word in line.split():		
+			num_words += 1
+		num_lines += 1
+		num_chars += len(line)
+
+
+		if lOption:
+			print("%3d"%num_lines,end="")
+
+		if wOption:
+			print("%3d"%num_words,end="")
+
+		if cOption:
+			print("%3d"%num_chars,end="")
+
+		if mOption:
+			print("%3d"%num_bytes,end="")
+
+for filename in files:
+	myfile = open(filename)
+	num_words = 0
+	num_lines = 0
+	num_chars = 0
+	num_bytes = 0
+	for line in myfile:
+		for word in line.split():		
+			num_words += 1
+		num_lines += 1
+		num_chars += len(line)
+
+	if lOption:
+		print("%3d"%num_lines,end=" ")
+
+	if wOption:
+		print("%3d"%num_words,end=" ")
+
+	if cOption:
+		print("%3d"%num_chars,end=" ")
+
+	if mOption:
+		print("%3d"%num_words,end="")
+	print(filename)
+
+
+
+# Accumulator Pattern
+#accumulator = 0
+
+#for i in range(10):
+#	accumulator = accumulator + 2 * i
+
+#print(accumulator)
+
+#s = sys.argv[1]
+
+#iterate over a string
+#for c in s:
+#	print(c)
+
+#iterate over a file
+#myfile = open("pywc")
+#for line in myfile:
+#	print(line)
+
+	#splitting a string
+#	for word in line.split():
+#		print(word)
+
